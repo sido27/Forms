@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario</title>
+  </head>
+
+  <body>
+    <form action="cambia_cuenta.php" method="post" id="fromulario">
+      <select name="sesion" id="sesion">
+        <option value="PC">PC</option>
+        <option value="MAC">MAC</option>
+      </select>
+      <br />
+
+      your password
+      <br />
+      <input type="password" name="pass" id="pass" />
+      <span style="color: red" id="span1"></span>
+      <br />
+      your password again
+      <br />
+      <input type="password" name="pass2" id="pass2" />
+      <span style="color: red" id="span2"></span>
+      <br />
+      I agree to sell my sol
+      <br />
+      <input type="checkbox" name="privacidad" id="privacidad" />
+      <span style="visibility: hidden; color: red" id="span3"
+        >YOU NEED TO GIVE YOUR SOUL</span
+      >
+      <br />
+      <textarea name="indicio" id="indicio"></textarea>
+      <input type="submit" />
+    </form>
+
+    <script>
+      const form = document.querySelector("#fromulario");
+      const pass = document.querySelector("#pass");
+      const pass2 = document.querySelector("#pass2");
+      const span1 = document.querySelector("#span1");
+      const span2 = document.querySelector("#span2");
+      const span3 = document.querySelector("#span3");
+      const sesion = document.querySelector("#sesion");
+      const privacidad = document.querySelector("#privacidad");
+      let spans = document.querySelectorAll("span");
+
+      form.addEventListener("submit", function (e) {
+        for (span in spans) {
+          spans[span].innerHTML = ""; // so you face one red ERROR at a time
+        }
+        // alert("submetted");
+        let passV = pass.value;
+        let result = /(?=.*[A-Z])(?=.*\d)(?=.{6}).*/.test(passV);
+        if (!result) {
+          spans[0].innerHTML = "debe ser mas fuerte";
+
+          pass.select();
+          e.preventDefault();
+        } else if (pass2.value != pass.value) {
+          spans[1].innerHTML = "not a match";
+          e.preventDefault();
+        }
+      });
+    </script>
+  </body>
+</html>
